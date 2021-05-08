@@ -3,9 +3,10 @@ import ScheduleService from '../services/ScheduleService'
 class ScheduleTab extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            ScheduleTab: [
+        this.state = {                      //Можно добавить отдельно расписание спецов и группы
+            ScheduleTab: [                  //Итоговая таблица,в последствии отрисовывается, можно в любом удобном виде
                 {
+                   MONDAY: '',              //можно удалить, тогда до выбора группы отрисовывается только заголовок
                    TUESDAY : '',
                    WEDNESDAY : '',
                    THURSDAY : '',
@@ -13,6 +14,7 @@ class ScheduleTab extends Component {
                    SATURDAY : '',
                 },
                 {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -20,6 +22,7 @@ class ScheduleTab extends Component {
                     SATURDAY : '',
                  },
                  {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -27,6 +30,7 @@ class ScheduleTab extends Component {
                     SATURDAY : '',
                  },
                  {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -34,6 +38,7 @@ class ScheduleTab extends Component {
                     SATURDAY : '',
                  },
                  {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -41,6 +46,7 @@ class ScheduleTab extends Component {
                     SATURDAY : '',
                  },
                  {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -48,6 +54,7 @@ class ScheduleTab extends Component {
                     SATURDAY : '',
                  },
                  {
+                    MONDAY: '',
                     TUESDAY : '',
                     WEDNESDAY : '',
                     THURSDAY : '',
@@ -84,10 +91,10 @@ class ScheduleTab extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {
+                            {          // <====== Отрисовка
                                 this.state.ScheduleTab.map(
                                     (item, i)=>                                    
-                                <tr>
+                                <tr key = {i}>
                                     <td>{this.state.timing[i]}</td>
                                     <td>{item.MONDAY}</td>
                                     <td>{item.TUESDAY}</td>

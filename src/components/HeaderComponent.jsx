@@ -1,48 +1,109 @@
 import React, { Component } from 'react';
-
-
+import ScheduleService from '../services/ScheduleService';
+import ScheduleTab from './ScheduleTab';
 class HeaderComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-          showMenu: false,
           groupNumber: '',
           b1: '',
           b2: '',
           b3: '',
-          b1List: '',
-          b2List: '',
-          b3List: '',
+          groupList: [],
+          b1List: [],
+          b2List: [],
+          b3List: [],
         }
-        this.changeGroupNumber = this.changeGroupNumber.bind(this);
+        this.changeGroup = this.changeGroup.bind(this);
+        this.changeSpec = this.changeSpec.bind(this);
     }
-    changeGroupNumber= (event) =>{
+    componentDidMount(){              //запускаяется автоматически
+      ScheduleService.getGroups().then((res) =>{
+          this.setState({groupList: res.data})
+      });
+    }
+    changeGroup= (event) =>{
       this.setState({groupNumber: event.target.value}); 
+      ScheduleService.getGroupTimetableAndSpecCourses().then((res) =>{
+        
+        this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
+          b1List: res.data.specCourses['2'],
+          b1List: res.data.specCourses['3']
+        })
+
+        // res.data.timetable              // <=======
+    });
+    }
+    changeSpec= (block, event) =>{        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
+                                          //не взлетит -> будет отдельно для каждого блока
+      this.setState({block: event.target.value}); 
+      ScheduleService.getGroupTimetableAndSpecCourses().then((res)=>{
+        // res.data              // <=======
+    });
     }
 
     render() {
-        return (               
-            <nav className = "navbar navbar-expand-md navbar-dark bg-dark">
-                <div class="btn-group">
-                  <button className="btn btn-black" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span className="navbar-toggler-icon"></span>
-                  </button>
-                  <div className="dropdown-menu p-1 mb-2 bg-dark text-white" aria-labelledby="dropdownMenu2">
-                    <form inline autoComplete="off">
-                      <div>Номер группы:</div>
-                      <input placeholder = "№" name = "groupNumber" className = "form-control"
-                          value = {this.state.groupNumber} onChange = {this.changeGroupNumber}/>
-                      <div className = "text-up">Спецкурсы:</div>
-                      <input placeholder = "B.1" name = "spec" className = "form-control"/>   
-                      <input placeholder = "B.2" name = "spec" className = "form-control"/>  
-                      <input placeholder = "B.3" name = "spec" className = "form-control"/>  
-                    </form>
-                  </div>
-                </div>
-                <div className = "navbar-brand">Расписание НГУ ФИТ</div>
-            </nav>
+        return ( 
+<div>
+  <nav className="navbar navbar-dark bg-dark text-white" >
+    <div className = "navbar-brand">Расписание НГУ ФИТ</div>
+      <form>
+        <div class="row">
+          <div class="col">Номер группы:</div>
+          <div class="col">Спецкурсы:</div>
+          <div class="w-100"></div>
+          <div class="col">
+            <select onChange={this.changeGroup} value={this.state.groupNumber}>
+              <option value=''>None</option>
+              {
+                this.state.groupList.map(
+                  item => <option>{item}</option>
+                )
+              }
+            </select>
+          </div>
+          <div class="col">
+            <span class="text-muted"> b1:</span>                 
+            <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1}>
+              <option  value=''>None</option>
+              {
+                this.state.b1List.map(
+                  item => <option>{item}</option>
+                )
+              }
+            </select>
+            <span class="text-muted"> b2:</span>                 
+            <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2}>              
+              <option  value=''>None</option>
+              {
+                this.state.b2List.map(
+                  item => <option>{item}</option>
+                )
+              }
+            </select>
+            <span class="text-muted"> b3:</span>                 
+            <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3}> 
+            <option  value=''>None</option>
+              {
+                this.state.b3List.map(
+                  item => <option>{item}</option>
+                )
+              }
+            </select>
+          </div>
+        </div>
+      </form>
 
-
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div className="collapse" id="navbarToggleExternalContent">
+    <div className="bg-dark p-3">
+      <h4 className="text-white">SUCCC</h4>
+    </div>
+  </div>
+</div>                          
         );
     }
 }
