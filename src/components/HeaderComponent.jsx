@@ -23,7 +23,6 @@ class HeaderComponent extends Component {
     render() {
         return (               
             <nav className = "navbar navbar-expand-md navbar-dark bg-dark">
-                <div className = "navbar-brand">Расписание НГУ ФИТ</div>
                 <div class="btn-group">
                   <button className="btn btn-black" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span className="navbar-toggler-icon"></span>
@@ -40,6 +39,7 @@ class HeaderComponent extends Component {
                     </form>
                   </div>
                 </div>
+                <div className = "navbar-brand">Расписание НГУ ФИТ</div>
             </nav>
 
 
