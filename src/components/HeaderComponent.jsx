@@ -26,13 +26,15 @@ class HeaderComponent extends Component {
     changeGroup= (event) =>{
       this.setState({groupNumber: event.target.value}); 
       ScheduleService.getGroupTimetableAndSpecCourses( event.target.value).then((res) =>{
-        console.log(res.data); //<==== в res.data.timetable расписание
+        // console.log(res.data); //<==== в res.data.timetable расписание
+        console.log(res.data.specCourses);
+        if(res.data.specCourses['1']){
 
-        // this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
-        //   b2List: res.data.specCourses['2'],
-        //   b3List: res.data.specCourses['3']
-        // })
-
+          this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
+            b2List: res.data.specCourses['2'],
+            b3List: res.data.specCourses['3']
+          })
+      }
         // res.data.timetable              // <=======
     });
     }
@@ -77,7 +79,7 @@ class HeaderComponent extends Component {
                   <option  value=''>None</option>
                   {
                     this.state.b1List.map(
-                      item => <option >{item}</option>
+                      item => <option key = {item.id} >{item.name}</option>
                     )
                   }
                 </select>
@@ -88,7 +90,7 @@ class HeaderComponent extends Component {
                   <option  value=''>None</option>
                   {
                     this.state.b2List.map(
-                      item => <option>{item}</option>
+                      item => <option key = {item.id}>{item.name}</option>
                     )
                   }
                 </select>
@@ -99,7 +101,7 @@ class HeaderComponent extends Component {
                 <option  value=''>None</option>
                   {
                     this.state.b3List.map(
-                      item => <option>{item}</option>
+                      item => <option key = {item.id}>{item.name}</option>
                     )
                   }
                 </select>
