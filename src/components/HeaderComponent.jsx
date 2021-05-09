@@ -25,12 +25,13 @@ class HeaderComponent extends Component {
     }
     changeGroup= (event) =>{
       this.setState({groupNumber: event.target.value}); 
-      ScheduleService.getGroupTimetableAndSpecCourses().then((res) =>{
-        
-        this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
-          b2List: res.data.specCourses['2'],
-          b3List: res.data.specCourses['3']
-        })
+      ScheduleService.getGroupTimetableAndSpecCourses( event.target.value).then((res) =>{
+        console.log(res.data); //<==== в res.data.timetable расписание
+
+        // this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
+        //   b2List: res.data.specCourses['2'],
+        //   b3List: res.data.specCourses['3']
+        // })
 
         // res.data.timetable              // <=======
     });
