@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ScheduleService from '../services/ScheduleService';
 import ScheduleTab from './ScheduleTab';
+
 class HeaderComponent extends Component {
     constructor(props){
         super(props)
@@ -24,12 +25,13 @@ class HeaderComponent extends Component {
     }
     changeGroup= (event) =>{
       this.setState({groupNumber: event.target.value}); 
-      ScheduleService.getGroupTimetableAndSpecCourses().then((res) =>{
-        
-        this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
-          b1List: res.data.specCourses['2'],
-          b1List: res.data.specCourses['3']
-        })
+      ScheduleService.getGroupTimetableAndSpecCourses( event.target.value).then((res) =>{
+        console.log(res.data); //<==== в res.data.timetable расписание
+
+        // this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
+        //   b2List: res.data.specCourses['2'],
+        //   b3List: res.data.specCourses['3']
+        // })
 
         // res.data.timetable              // <=======
     });
@@ -62,7 +64,7 @@ class HeaderComponent extends Component {
                 <option value=''>None</option>
                 {
                   this.state.groupList.map(
-                    item => <option>{item}</option>
+                    item => <option key = {item.groupNumber}>{item.groupNumber}</option>
                   )
                 }
               </select>
@@ -75,7 +77,7 @@ class HeaderComponent extends Component {
                   <option  value=''>None</option>
                   {
                     this.state.b1List.map(
-                      item => <option>{item}</option>
+                      item => <option >{item}</option>
                     )
                   }
                 </select>
