@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ScheduleTab from './components/ScheduleTab';
 import HeaderComponent from './components/HeaderComponent';
