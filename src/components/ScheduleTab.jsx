@@ -77,7 +77,7 @@ class ScheduleTab extends Component {
         return (
             <div>
                 <div className = "row">
-                    <table className = "table table-stripped table-bordered">
+                    <table className = "table  table-stripped table-bordered">
                         <thead>
                             <tr>
                                 <th>

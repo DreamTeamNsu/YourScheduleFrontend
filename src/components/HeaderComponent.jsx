@@ -47,12 +47,16 @@ class HeaderComponent extends Component {
 <div>
   <nav className="navbar navbar-dark bg-dark text-white" >
     <div className = "navbar-brand">Расписание НГУ ФИТ</div>
-      <form>
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div className="collapse" id="navbarToggleExternalContent">
+    <div className="bg-dark text-white p-3">
+      
         <div class="row">
-          <div class="col">Номер группы:</div>
-          <div class="col">Спецкурсы:</div>
-          <div class="w-100"></div>
           <div class="col">
+            <div>Номер группы:</div>
             <select onChange={this.changeGroup} value={this.state.groupNumber}>
               <option value=''>None</option>
               {
@@ -62,7 +66,9 @@ class HeaderComponent extends Component {
               }
             </select>
           </div>
-          <div class="col">
+        <div class="col">Спецкурсы:</div>
+        <div class="col"> 
+        <div class="row">
             <span class="text-muted"> b1:</span>                 
             <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1}>
               <option  value=''>None</option>
@@ -72,6 +78,8 @@ class HeaderComponent extends Component {
                 )
               }
             </select>
+          </div>
+          <div class="row">
             <span class="text-muted"> b2:</span>                 
             <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2}>              
               <option  value=''>None</option>
@@ -81,6 +89,8 @@ class HeaderComponent extends Component {
                 )
               }
             </select>
+          </div>
+          <div class="row">
             <span class="text-muted"> b3:</span>                 
             <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3}> 
             <option  value=''>None</option>
@@ -90,17 +100,12 @@ class HeaderComponent extends Component {
                 )
               }
             </select>
+            </div>
           </div>
         </div>
-      </form>
+     
 
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  </nav>
-  <div className="collapse" id="navbarToggleExternalContent">
-    <div className="bg-dark p-3">
-      <h4 className="text-white">SUCCC</h4>
+
     </div>
   </div>
 </div>                          
