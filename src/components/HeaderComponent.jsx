@@ -53,62 +53,62 @@ class HeaderComponent extends Component {
   </nav>
   <div className="collapse" id="navbarToggleExternalContent">
     <div className="bg-dark text-white p-3">
-      
-        <div class="row">
-          <div class="col">
+    <div className = "header-form"> 
+      <div className="container">
+        <div className="row justify-content-end">
+          <div className="col">
             <div>Номер группы:</div>
-            <select onChange={this.changeGroup} value={this.state.groupNumber}>
-              <option value=''>None</option>
-              {
-                this.state.groupList.map(
-                  item => <option>{item}</option>
-                )
-              }
-            </select>
-          </div>
-        <div class="col">Спецкурсы:</div>
-        <div class="col"> 
-        <div class="row">
-            <span class="text-muted"> b1:</span>                 
-            <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1}>
-              <option  value=''>None</option>
-              {
-                this.state.b1List.map(
-                  item => <option>{item}</option>
-                )
-              }
-            </select>
-          </div>
-          <div class="row">
-            <span class="text-muted"> b2:</span>                 
-            <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2}>              
-              <option  value=''>None</option>
-              {
-                this.state.b2List.map(
-                  item => <option>{item}</option>
-                )
-              }
-            </select>
-          </div>
-          <div class="row">
-            <span class="text-muted"> b3:</span>                 
-            <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3}> 
-            <option  value=''>None</option>
-              {
-                this.state.b3List.map(
-                  item => <option>{item}</option>
-                )
-              }
-            </select>
+              <select onChange={this.changeGroup} value={this.state.groupNumber}>
+                <option value=''>None</option>
+                {
+                  this.state.groupList.map(
+                    item => <option>{item}</option>
+                  )
+                }
+              </select>
+            </div>
+          <div className="col">Спецкурсы:</div>
+          <div className="col"> 
+            <div className="row">
+                <span className="text-muted"> b1:</span>                 
+                <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1}>
+                  <option  value=''>None</option>
+                  {
+                    this.state.b1List.map(
+                      item => <option>{item}</option>
+                    )
+                  }
+                </select>
+              </div>
+              <div className="row">
+                <span className="text-muted"> b2:</span>                 
+                <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2}>              
+                  <option  value=''>None</option>
+                  {
+                    this.state.b2List.map(
+                      item => <option>{item}</option>
+                    )
+                  }
+                </select>
+              </div>
+              <div className="row">
+                <span className="text-muted"> b3:</span>                 
+                <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3}> 
+                <option  value=''>None</option>
+                  {
+                    this.state.b3List.map(
+                      item => <option>{item}</option>
+                    )
+                  }
+                </select>
+                </div>
             </div>
           </div>
         </div>
-     
-
-
+        </div>
+      </div>
     </div>
-  </div>
-</div>                          
+  </div>                          
         );
     }
 }

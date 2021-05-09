@@ -7,10 +7,8 @@ import '../src/index.css';
 function App() {
   return (
     <div>
-          <HeaderComponent />
-          <div className = "container">
-              <ScheduleTab />
-          </div>
+          <HeaderComponent/>
+          <ScheduleTab />
     </div>
   );
 }

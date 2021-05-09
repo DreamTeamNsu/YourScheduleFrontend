@@ -75,8 +75,8 @@ class ScheduleTab extends Component {
 
     render() {
         return (
-            <div>
-                <div className = "row">
+            <div className = "pre-tab">
+            <div className = "schedule-tab">
                     <table className = "table  table-stripped table-bordered">
                         <thead>
                             <tr>
