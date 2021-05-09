@@ -9,6 +9,7 @@ class ScheduleService{
         return axios.get(SCHEDULE_API_BASE_URL+"/get/group-timetable?groupNumber="+group)
     }
     getSpecCourseTimetable(specId){
+        console.log(specId)
         return axios.get(SCHEDULE_API_BASE_URL+"/get/spec-timetable?specId="+specId)
     }
 }

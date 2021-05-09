@@ -27,7 +27,7 @@ class HeaderComponent extends Component {
       this.setState({groupNumber: event.target.value}); 
       ScheduleService.getGroupTimetableAndSpecCourses( event.target.value).then((res) =>{
         // console.log(res.data); //<==== в res.data.timetable расписание
-        console.log(res.data.specCourses);
+        // console.log(res.data.specCourses);
         if(res.data.specCourses['1']){
 
           this.setState({b1List: res.data.specCourses['1'],     //не факт что работает как нужно
@@ -41,7 +41,7 @@ class HeaderComponent extends Component {
     changeSpec= (block, event) =>{        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
                                           //не взлетит -> будет отдельно для каждого блока
       this.setState({block: event.target.value}); 
-      ScheduleService.getGroupTimetableAndSpecCourses().then((res)=>{
+      ScheduleService.getSpecCourseTimetable(event.target.value).then((res)=>{
         // res.data              // <=======
     });
     }
@@ -66,7 +66,7 @@ class HeaderComponent extends Component {
                 <option value=''>None</option>
                 {
                   this.state.groupList.map(
-                    item => <option key = {item.groupNumber}>{item.groupNumber}</option>
+                    item => <option value={item.groupNumber} key = {item.groupNumber}>{item.groupNumber}</option>
                   )
                 }
               </select>
@@ -75,33 +75,33 @@ class HeaderComponent extends Component {
           <div className="col"> 
             <div className="row">
                 <span className="text-muted"> b1:</span>                 
-                <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1}>
+                <select onChange={(e) => this.changeSpec('b1',e)} value={this.state.b1.id}>
                   <option  value=''>None</option>
                   {
                     this.state.b1List.map(
-                      item => <option key = {item.id} >{item.name}</option>
+                      item => <option value={item.id} key = {item.id} >{item.name}</option>
                     )
                   }
                 </select>
               </div>
               <div className="row">
                 <span className="text-muted"> b2:</span>                 
-                <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2}>              
+                <select onChange={(e) => this.changeSpec('b2',e)} value={this.state.b2.id}>              
                   <option  value=''>None</option>
                   {
                     this.state.b2List.map(
-                      item => <option key = {item.id}>{item.name}</option>
+                      item => <option value={item.id}  key = {item.id}>{item.name}</option>
                     )
                   }
                 </select>
               </div>
               <div className="row">
                 <span className="text-muted"> b3:</span>                 
-                <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3}> 
+                <select onChange={(e) => this.changeSpec('b3',e)} value={this.state.b3.id}> 
                 <option  value=''>None</option>
                   {
                     this.state.b3List.map(
-                      item => <option key = {item.id}>{item.name}</option>
+                      item => <option  value={item.id} key = {item.id}>{item.name}</option>
                     )
                   }
                 </select>
