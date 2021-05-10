@@ -1,5 +1,4 @@
 import './App.css';
-import ScheduleTab from './components/ScheduleTab';
 import HeaderComponent from './components/HeaderComponent';
 import '../src/index.css';
 
