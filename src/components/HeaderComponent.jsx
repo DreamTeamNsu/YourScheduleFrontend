@@ -48,7 +48,19 @@ class HeaderComponent extends Component {
     });
   }
 
-  render() {
+    render() {
+
+        const specCourses = []
+
+        if (this.state.b1.length > 0)
+            specCourses.push(this.state.b1)
+
+        if (this.state.b2.length > 0)
+            specCourses.push(this.state.b2)
+
+        if (this.state.b3.length > 0)
+            specCourses.push(this.state.b3)
+
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark text-white" >
@@ -115,8 +127,8 @@ class HeaderComponent extends Component {
               </div>
             </div>
           </div>
-        </div>
-        <ScheduleTab groupNumber={this.state.groupNumber}/>
+            </div>
+            <ScheduleTab groupNumber={this.state.groupNumber} specCourses={specCourses} />
       </div>
 
 
