@@ -36,13 +36,12 @@ class HeaderComponent extends Component {
           b3List: res.data.specCourses['3']
         })
       }
-      ScheduleTab.grouId = event.target.value
       // res.data.timetable              // <=======
     });
   }
   changeSpec = (block, event) => {        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
     //не взлетит -> будет отдельно для каждого блока
-    this.setState({ block: event.target.value });
+    this.setState({ [block]: event.target.value });
     ScheduleService.getSpecCourseTimetable(event.target.value).then((res) => {
       // res.data              // <=======
     });
@@ -50,16 +49,13 @@ class HeaderComponent extends Component {
 
     render() {
 
-        const specCourses = []
+        const specCoursesIds = []
 
-        if (this.state.b1.length > 0)
-            specCourses.push(this.state.b1)
-
-        if (this.state.b2.length > 0)
-            specCourses.push(this.state.b2)
-
-        if (this.state.b3.length > 0)
-            specCourses.push(this.state.b3)
+        for (let i = 1; i <= 3; i++) {
+            const b = this.state[`b${i}`];
+            if (b?.length ?? 0 > 0)
+                specCoursesIds.push(this.state.b1)
+        }
 
     return (
       <div>
@@ -128,7 +124,7 @@ class HeaderComponent extends Component {
             </div>
           </div>
             </div>
-            <ScheduleTab groupNumber={this.state.groupNumber} specCourses={specCourses} />
+            <ScheduleTab groupNumber={this.state.groupNumber} specCourses={specCoursesIds} />
       </div>
 
 

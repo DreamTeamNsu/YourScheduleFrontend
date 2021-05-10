@@ -18,28 +18,56 @@ const lessonTypes = {
 
 class ScheduleTab extends React.PureComponent {
 
+    fillRows(data, initRows) {
+
+        console.log(data)
+
+        let rows = {
+            ...initRows ?? {}
+        }
+
+        data.timetable?.forEach(t => {
+            if (!rows[t.cell.startTime])
+                rows = {
+                    ...rows,
+                    [t.cell.startTime]: new DaysOfWeek()
+                }
+        })
+
+        data.timetable?.forEach(t => {
+            rows[t.cell.startTime][t.cell.dayOfWeek].push({
+                name: t.lesson.name,
+                type: lessonTypes[t.lesson.type] ?? t.lesson.type,
+                room: t.lesson.room,
+            })
+        })
+
+        return rows;
+    }
+
     componentDidUpdate(prevProps) {
 
-        if (prevProps.groupNumber !== this.props.groupNumber) {
-            ScheduleService.getGroupTimetableAndSpecCourses(this.props.groupNumber).then((res) => {
-                let rows = {}
-                res.data.timetable?.forEach(t => {
-                    if (!rows[t.cell.startTime])
-                        rows = {
-                            ...rows,
-                            [t.cell.startTime]: new DaysOfWeek()
-                        }
-                })
+        if ((this.props.groupNumber?.length ?? 0 > 0)
+            && (prevProps.groupNumber !== this.props.groupNumber
+                || ((this.props.specCourses?.length ?? 0 > 0) && prevProps.specCourses !== this.props.specCourses)
+            )) {
 
-                res.data.timetable?.forEach(t => {
-                    rows[t.cell.startTime][t.cell.dayOfWeek].push({
-                        name: t.lesson.name,
-                        type: lessonTypes[t.lesson.type] ?? t.lesson.type,
-                        room: t.lesson.room,
-                    })
-                })
+            ScheduleService.getGroupTimetableAndSpecCourses(this.props.groupNumber).then(res => {
 
-                this.setState({ rows })
+                return this.fillRows(res.data);
+
+            }).then(initRows => {
+
+                if (this.props.specCourses.length > 0)
+                    ScheduleService.getSpecCourseTimetable(this.props.specCourses).then(res => {
+
+                        const rows = this.fillRows(res.data, initRows);
+
+                        this.setState({ rows });
+
+                    });
+                else
+                    this.setState({ rows: initRows });
             });
         }
 
