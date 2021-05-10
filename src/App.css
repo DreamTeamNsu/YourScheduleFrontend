@@ -7,5 +7,7 @@
 .pre-tab {
   overflow: auto
 }
-
+.select-spec{
+  width: 150px
+}
 
