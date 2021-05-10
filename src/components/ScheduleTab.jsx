@@ -12,6 +12,10 @@ class DaysOfWeek {
     }
 }
 
+const lessonTypes = {
+    SEMINAR: "Семинар",
+}
+
 class ScheduleTab extends React.PureComponent {
 
     componentDidUpdate(prevProps) {
@@ -30,7 +34,7 @@ class ScheduleTab extends React.PureComponent {
                 res.data.timetable?.forEach(t => {
                     rows[t.cell.startTime][t.cell.dayOfWeek].push({
                         name: t.lesson.name,
-                        type: t.lesson.type,
+                        type: lessonTypes[t.lesson.type] ?? t.lesson.type,
                         room: t.lesson.room,
                     })
                 })
