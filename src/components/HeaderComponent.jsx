@@ -40,10 +40,7 @@ class HeaderComponent extends Component {
   }
   changeSpec = (block, event) => {        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
     //не взлетит -> будет отдельно для каждого блока
-    this.setState({ [block]: event.target.value });
-    ScheduleService.getSpecCourseTimetable(event.target.value).then((res) => {
-      // res.data              // <=======
-    });
+    this.setState({ [block]: event.target.value ?? '' });
   }
 
     render() {
@@ -53,7 +50,7 @@ class HeaderComponent extends Component {
         for (let i = 1; i <= 3; i++) {
             const b = this.state[`b${i}`];
             if (b?.length ?? 0 > 0)
-                specCoursesIds.push(this.state.b1)
+                specCoursesIds.push(b)
         }
 
     return (

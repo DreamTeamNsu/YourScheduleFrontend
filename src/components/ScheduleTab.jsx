@@ -20,13 +20,11 @@ class ScheduleTab extends React.PureComponent {
 
     fillRows(data, initRows) {
 
-        console.log(data)
-
         let rows = {
             ...initRows ?? {}
         }
 
-        data.timetable?.forEach(t => {
+        data?.forEach(t => {
             if (!rows[t.cell.startTime])
                 rows = {
                     ...rows,
@@ -34,11 +32,12 @@ class ScheduleTab extends React.PureComponent {
                 }
         })
 
-        data.timetable?.forEach(t => {
+        data?.forEach(t => {
             rows[t.cell.startTime][t.cell.dayOfWeek].push({
                 name: t.lesson.name,
                 type: lessonTypes[t.lesson.type] ?? t.lesson.type,
                 room: t.lesson.room,
+                isSpec: initRows !== undefined,
             })
         })
 
@@ -48,18 +47,18 @@ class ScheduleTab extends React.PureComponent {
     componentDidUpdate(prevProps) {
 
         if ((this.props.groupNumber?.length ?? 0 > 0)
-            && (prevProps.groupNumber !== this.props.groupNumber
-                || ((this.props.specCourses?.length ?? 0 > 0) && prevProps.specCourses !== this.props.specCourses)
-            )) {
+            && ((prevProps.groupNumber ?? '') !== (this.props.groupNumber ?? '')
+                || (prevProps.specCourses ?? []) !== (this.props.specCourses ?? []))
+        ) {
 
-            ScheduleService.getGroupTimetableAndSpecCourses(this.props.groupNumber).then(res => {
+            ScheduleService.getOnlyGroupTimetable(this.props.groupNumber).then(res => {
 
                 return this.fillRows(res.data);
 
             }).then(initRows => {
 
                 if (this.props.specCourses.length > 0)
-                    ScheduleService.getSpecCourseTimetable(this.props.specCourses).then(res => {
+                    ScheduleService.getMultipleSpecCoursesTimetable(this.props.specCourses).then(res => {
 
                         const rows = this.fillRows(res.data, initRows);
 
@@ -79,7 +78,7 @@ class ScheduleTab extends React.PureComponent {
 
     renderCell(data) {
         return (data.map((d, index) =>
-            <div key={index}>
+            <div key={index} style={{ backgroundColor: d.isSpec ? "lightblue" : undefined }}>
                 <b>{d.name}</b><br />
                 {d.type}<br />
                 {d.room}
