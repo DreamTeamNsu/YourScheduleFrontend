@@ -35,17 +35,13 @@ class ScheduleTab extends React.PureComponent {
                     })
                 })
 
-                this.setState({
-                    rows,
-                    groupNumber: this.props.groupNumber,
-                })
+                this.setState({ rows })
             });
         }
 
     }
 
     state = {
-        groupNumber: undefined,
         rows: {}
     }
 
