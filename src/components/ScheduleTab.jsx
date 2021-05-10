@@ -14,6 +14,9 @@ class DaysOfWeek {
 
 const lessonTypes = {
     SEMINAR: "Семинар",
+    LECTURE: "Лекция",
+    LAB: "Семинар",
+    UNKNOWN: ""
 }
 
 class ScheduleTab extends React.PureComponent {
