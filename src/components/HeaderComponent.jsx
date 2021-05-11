@@ -26,21 +26,39 @@ class HeaderComponent extends Component {
   changeGroup = (event) => {
     this.setState({ groupNumber: event.target.value });
     ScheduleService.getGroupTimetableAndSpecCourses(event.target.value).then((res) => {
-      // console.log(res.data.specCourses);
       if (res.data.specCourses['1']) {
         this.setState({
           b1List: res.data.specCourses['1'],     
-          b2List: res.data.specCourses['2'],
-          b3List: res.data.specCourses['3']
         })
       } else {
         this.setState({
+          b1: '',
           b1List: [],     
-          b2List: [],
-          b3List: []
         })
       }
-      // res.data.timetable              // <=======
+      if (res.data.specCourses['2']) {
+        this.setState({
+          b2List: res.data.specCourses['2'],     
+        })
+      } else {
+        this.setState({
+          b2: '',
+          b2List: [],     
+        })
+      }
+      if (res.data.specCourses['3']) {
+        this.setState({
+          b3List: res.data.specCourses['3'],     
+        })
+      } else {
+        this.setState({
+          b3: '',
+          b3List: [],     
+        })
+      }
+
+
+
     });
   }
   changeSpec = (block, event) => {        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
