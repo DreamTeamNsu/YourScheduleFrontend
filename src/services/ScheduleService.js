@@ -10,7 +10,15 @@ class ScheduleService{
     }
     getSpecCourseTimetable(specId){
         console.log(specId)
-        return axios.get(SCHEDULE_API_BASE_URL+"/get/spec-timetable?specId="+specId)
+        return axios.get(SCHEDULE_API_BASE_URL + "/get/spec-timetable?specId=" + specId)
+    }
+
+    getMultipleSpecCoursesTimetable(id) {
+        return axios.get(`${SCHEDULE_API_BASE_URL}/get/spec-array-timetable`, { params: { id: id + '' } });
+    }
+
+    getOnlyGroupTimetable(groupNumber) {
+        return axios.get(`${SCHEDULE_API_BASE_URL}/get/only-group-timetable`, { params: { groupNumber } });
     }
 }
 export default new ScheduleService()

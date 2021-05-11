@@ -12,30 +12,64 @@ class DaysOfWeek {
     }
 }
 
+const lessonTypes = {
+    SEMINAR: "Семинар",
+    LECTURE: "Лекция",
+    LAB: "Семинар",
+    UNKNOWN: ""
+}
+
 class ScheduleTab extends React.PureComponent {
+
+    fillRows(data, initRows) {
+
+        let rows = {
+            ...initRows ?? {}
+        }
+
+        data?.forEach(t => {
+            if (!rows[t.cell.startTime])
+                rows = {
+                    ...rows,
+                    [t.cell.startTime]: new DaysOfWeek()
+                }
+        })
+
+        data?.forEach(t => {
+            rows[t.cell.startTime][t.cell.dayOfWeek].push({
+                name: t.lesson.name,
+                type: lessonTypes[t.lesson.type] ?? t.lesson.type,
+                room: t.lesson.room,
+                isSpec: initRows !== undefined,
+            })
+        })
+
+        return rows;
+    }
 
     componentDidUpdate(prevProps) {
 
-        if (prevProps.groupNumber !== this.props.groupNumber) {
-            ScheduleService.getGroupTimetableAndSpecCourses(this.props.groupNumber).then((res) => {
-                let rows = {}
-                res.data.timetable?.forEach(t => {
-                    if (!rows[t.cell.startTime])
-                        rows = {
-                            ...rows,
-                            [t.cell.startTime]: new DaysOfWeek()
-                        }
-                })
+        if ((this.props.groupNumber?.length ?? 0 > 0)
+            && ((prevProps.groupNumber ?? '') !== (this.props.groupNumber ?? '')
+                || (prevProps.specCourses ?? []) !== (this.props.specCourses ?? []))
+        ) {
 
-                res.data.timetable?.forEach(t => {
-                    rows[t.cell.startTime][t.cell.dayOfWeek].push({
-                        name: t.lesson.name,
-                        type: t.lesson.type,
-                        room: t.lesson.room,
-                    })
-                })
+            ScheduleService.getOnlyGroupTimetable(this.props.groupNumber).then(res => {
 
-                this.setState({ rows })
+                return this.fillRows(res.data);
+
+            }).then(initRows => {
+
+                if (this.props.specCourses.length > 0)
+                    ScheduleService.getMultipleSpecCoursesTimetable(this.props.specCourses).then(res => {
+
+                        const rows = this.fillRows(res.data, initRows);
+
+                        this.setState({ rows });
+
+                    });
+                else
+                    this.setState({ rows: initRows });
             });
         }
 
@@ -47,7 +81,7 @@ class ScheduleTab extends React.PureComponent {
 
     renderCell(data) {
         return (data.map((d, index) =>
-            <div key={index}>
+            <div key={index} style={{ backgroundColor: d.isSpec ? "lightblue" : undefined }}>
                 <b>{d.name}</b><br />
                 {d.type}<br />
                 {d.room}
