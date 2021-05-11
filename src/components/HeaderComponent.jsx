@@ -28,11 +28,16 @@ class HeaderComponent extends Component {
     ScheduleService.getGroupTimetableAndSpecCourses(event.target.value).then((res) => {
       // console.log(res.data.specCourses);
       if (res.data.specCourses['1']) {
-
         this.setState({
           b1List: res.data.specCourses['1'],     
           b2List: res.data.specCourses['2'],
           b3List: res.data.specCourses['3']
+        })
+      } else {
+        this.setState({
+          b1List: [],     
+          b2List: [],
+          b3List: []
         })
       }
       // res.data.timetable              // <=======
