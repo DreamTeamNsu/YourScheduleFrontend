@@ -25,10 +25,10 @@ class HeaderComponent extends Component {
   }
   changeGroup = (event) => {
     this.setState({ groupNumber: event.target.value });
-    ScheduleService.getGroupTimetableAndSpecCourses(event.target.value).then((res) => {
-      if (res.data.specCourses['1']) {
+    ScheduleService.getSpecCourses(event.target.value).then((res) => {
+      if (res.data['1']) {
         this.setState({
-          b1List: res.data.specCourses['1'],     
+          b1List: res.data['1'],     
         })
       } else {
         this.setState({
@@ -36,9 +36,9 @@ class HeaderComponent extends Component {
           b1List: [],     
         })
       }
-      if (res.data.specCourses['2']) {
+      if (res.data['2']) {
         this.setState({
-          b2List: res.data.specCourses['2'],     
+          b2List: res.data['2'],     
         })
       } else {
         this.setState({
@@ -46,9 +46,9 @@ class HeaderComponent extends Component {
           b2List: [],     
         })
       }
-      if (res.data.specCourses['3']) {
+      if (res.data['3']) {
         this.setState({
-          b3List: res.data.specCourses['3'],     
+          b3List: res.data['3'],     
         })
       } else {
         this.setState({
