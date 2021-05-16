@@ -94,6 +94,7 @@ class ScheduleTab extends React.PureComponent {
         const rows = this.state.rows
 
         return (
+            <div class="overflow-auto">
             <table className="table table-stripped table-bordered">
                 <thead>
                     <tr>
@@ -121,6 +122,7 @@ class ScheduleTab extends React.PureComponent {
                     )}
                 </tbody>
             </table>
+            </div>
         );
     }
 }
