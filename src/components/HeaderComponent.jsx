@@ -14,6 +14,7 @@ class HeaderComponent extends Component {
       b1List: [],
       b2List: [],
       b3List: [],
+      blocks: ['1','2','3']
     }
     this.changeGroup = this.changeGroup.bind(this);
     this.changeSpec = this.changeSpec.bind(this);
@@ -26,50 +27,61 @@ class HeaderComponent extends Component {
   changeGroup = (event) => {
     this.setState({ groupNumber: event.target.value });
     ScheduleService.getSpecCourses(event.target.value).then((res) => {
-      if (res.data['1']) {
-        this.setState({
-          b1List: res.data['1'],     
-        })
-      } else {
-        this.setState({
-          b1: '',
-          b1List: [],     
-        })
+      for (let i = 1; i <= 3; i++) {
+        console.log(i.toString())
+        if (res.data[i.toString()]) {
+          this.setState({
+            [`b${i}List`]: res.data[i.toString()],     
+          })
+        } else {
+          this.setState({
+            [`b${i}`]: '',
+            [`b${i}List`]: [],     
+          })
+        }
       }
-      if (res.data['2']) {
-        this.setState({
-          b2List: res.data['2'],     
-        })
-      } else {
-        this.setState({
-          b2: '',
-          b2List: [],     
-        })
-      }
-      if (res.data['3']) {
-        this.setState({
-          b3List: res.data['3'],     
-        })
-      } else {
-        this.setState({
-          b3: '',
-          b3List: [],     
-        })
-      }
+
+      // if (res.data['1']) {
+      //   this.setState({
+      //     b1List: res.data['1'],     
+      //   })
+      // } else {
+      //   this.setState({
+      //     b1: '',
+      //     b1List: [],     
+      //   })
+      // }
+      // if (res.data['2']) {
+      //   this.setState({
+      //     b2List: res.data['2'],     
+      //   })
+      // } else {
+      //   this.setState({
+      //     b2: '',
+      //     b2List: [],     
+      //   })
+      // }
+      // if (res.data['3']) {
+      //   this.setState({
+      //     b3List: res.data['3'],     
+      //   })
+      // } else {
+      //   this.setState({
+      //     b3: '',
+      //     b3List: [],     
+      //   })
+      // }
 
 
 
     });
   }
-  changeSpec = (block, event) => {        //Свойство "block" объявлено, но его значение не было прочитано. WTF&&
-    //не взлетит -> будет отдельно для каждого блока
+  changeSpec = (block, event) => {        
     this.setState({ [block]: event.target.value ?? '' });
   }
 
     render() {
-
         const specCoursesIds = []
-
         for (let i = 1; i <= 3; i++) {
             const b = this.state[`b${i}`];
             if (b?.length ?? 0 > 0)

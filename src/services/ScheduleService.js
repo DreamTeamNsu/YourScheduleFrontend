@@ -2,7 +2,6 @@ import axios from 'axios'
 const SCHEDULE_API_BASE_URL = "https://your-schedule-nsu-server.herokuapp.com/api";
 class ScheduleService{ 
     getGroups(){
-        // console.log(axios.get(SCHEDULE_API_BASE_URL+"/get/groups"));
         return axios.get(SCHEDULE_API_BASE_URL+"/get/groups");
     }
     getSpecCourses(group){
