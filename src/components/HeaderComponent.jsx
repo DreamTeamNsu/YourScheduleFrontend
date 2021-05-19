@@ -28,7 +28,6 @@ class HeaderComponent extends Component {
     this.setState({ groupNumber: event.target.value });
     ScheduleService.getSpecCourses(event.target.value).then((res) => {
       for (let i = 1; i <= 3; i++) {
-        console.log(i.toString())
         if (res.data[i.toString()]) {
           this.setState({
             [`b${i}List`]: res.data[i.toString()],     
@@ -40,40 +39,6 @@ class HeaderComponent extends Component {
           })
         }
       }
-
-      // if (res.data['1']) {
-      //   this.setState({
-      //     b1List: res.data['1'],     
-      //   })
-      // } else {
-      //   this.setState({
-      //     b1: '',
-      //     b1List: [],     
-      //   })
-      // }
-      // if (res.data['2']) {
-      //   this.setState({
-      //     b2List: res.data['2'],     
-      //   })
-      // } else {
-      //   this.setState({
-      //     b2: '',
-      //     b2List: [],     
-      //   })
-      // }
-      // if (res.data['3']) {
-      //   this.setState({
-      //     b3List: res.data['3'],     
-      //   })
-      // } else {
-      //   this.setState({
-      //     b3: '',
-      //     b3List: [],     
-      //   })
-      // }
-
-
-
     });
   }
   changeSpec = (block, event) => {        
